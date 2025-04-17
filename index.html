@@ -48,16 +48,28 @@
       pointer-events: none;
     }
 
+    .sound-toggle {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 5;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s ease;
+    }
+
+    .sound-toggle:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
     .intro {
-      position: relative;
-      z-index: 2;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      padding: 4rem 2rem 2rem;
       text-align: center;
-      padding: 2rem;
     }
 
     .intro h1 {
@@ -123,18 +135,20 @@
 <body>
 
   <header>
-    <div class="video-bg">
-      <iframe src="https://www.youtube.com/embed/vzBrNmfkAG0?autoplay=1&mute=1&controls=0&loop=1&playlist=vzBrNmfkAG0&modestbranding=1&showinfo=0"
+    <div class="video-bg" id="video-container">
+      <iframe id="bg-video" src="https://www.youtube.com/embed/rC36JT88w2A?autoplay=1&mute=1&controls=0&loop=1&playlist=rC36JT88w2A&modestbranding=1&showinfo=0"
               frameborder="0"
               allow="autoplay; fullscreen"
               allowfullscreen>
       </iframe>
     </div>
-    <div class="intro">
-      <h1>Quentin Teissier</h1>
-      <p>Vidéaste freelance</p>
-    </div>
+    <button class="sound-toggle" onclick="enableSound()">🔊 Activer le son</button>
   </header>
+
+  <div class="intro">
+    <h1>Quentin Teissier</h1>
+    <p>Vidéaste freelance</p>
+  </div>
 
   <section class="videos">
     <div class="video-card">
@@ -150,6 +164,24 @@
   <footer>
     © 2025 Quentin Teissier — Tous droits réservés
   </footer>
+
+  <script>
+    function enableSound() {
+      const container = document.getElementById("video-container");
+      const video = document.getElementById("bg-video");
+
+      // Remplacer l'iframe avec une version avec le son
+      const newIframe = document.createElement("iframe");
+      newIframe.src = "https://www.youtube.com/embed/rC36JT88w2A?autoplay=1&mute=0&controls=0&loop=1&playlist=rC36JT88w2A&modestbranding=1&showinfo=0";
+      newIframe.frameBorder = "0";
+      newIframe.allow = "autoplay; fullscreen";
+      newIframe.allowFullscreen = true;
+      newIframe.style = video.style.cssText;
+      newIframe.id = "bg-video";
+
+      container.replaceChild(newIframe, video);
+    }
+  </script>
 
 </body>
 </html>
