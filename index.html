@@ -1,82 +1,107 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Quentin Teissier</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quentin Teissier – Vidéaste freelance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet" />
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-      color: #f0f0f0;
+      padding: 0;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      background-color: #0e0e0e;
+      color: #fff;
+      scroll-behavior: smooth;
     }
 
     header {
-      text-align: center;
-      padding: 3rem 1rem;
-      background: #000;
-      box-shadow: 0 4px 20px rgba(255, 0, 0, 0.2);
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 3rem;
-      color: #ff4d4d;
+    header video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(0.4);
     }
 
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 2rem;
+    .intro {
+      position: relative;
+      z-index: 2;
+      height: 100%;
       display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .intro h1 {
+      font-size: 3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+    }
+
+    .intro p {
+      font-size: 1.2rem;
+      font-weight: 300;
+      color: #ccc;
+    }
+
+    section.videos {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
     }
 
     .video-card {
-      background: #1e1e1e;
-      border-radius: 12px;
+      background-color: #1a1a1a;
+      border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-      width: 100%;
-      max-width: 460px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease;
     }
 
     .video-card:hover {
       transform: scale(1.02);
-      box-shadow: 0 12px 24px rgba(255, 77, 77, 0.4);
+    }
+
+    .video-card iframe {
+      width: 100%;
+      height: 220px;
+      border: none;
     }
 
     .video-card h2 {
-      margin: 1rem;
-      font-size: 1.3rem;
-      color: #ff4d4d;
-    }
-
-    iframe {
-      width: 100%;
-      height: 260px;
-      display: block;
-      border: none;
+      font-size: 1rem;
+      padding: 1rem;
+      color: #fff;
     }
 
     footer {
       text-align: center;
       padding: 2rem;
-      color: #777;
       font-size: 0.9rem;
+      color: #666;
     }
 
     @media (max-width: 600px) {
-      header h1 {
+      .intro h1 {
         font-size: 2rem;
-      }
-      iframe {
-        height: 200px;
       }
     }
   </style>
@@ -84,26 +109,29 @@
 <body>
 
   <header>
-    <h1>Quentin Teissier</h1>
+    <video autoplay muted loop playsinline>
+      <source src="https://www.youtube.com/embed/vzBrNmfkAG0" type="video/mp4" />
+      <!-- fallback -->
+    </video>
+    <div class="intro">
+      <h1>Quentin Teissier</h1>
+      <p>Vidéaste freelance</p>
+    </div>
   </header>
 
-  <div class="container">
+  <section class="videos">
     <div class="video-card">
-      <iframe src="https://www.youtube.com/embed/ID_VIDEO_1" allowfullscreen></iframe>
-      <h2>🎬 Titre de la vidéo 1</h2>
+      <iframe src="https://www.youtube.com/embed/z8H1g_7V9To" allowfullscreen></iframe>
+      <h2>Projet 1 – Nom de la vidéo</h2>
     </div>
     <div class="video-card">
-      <iframe src="https://www.youtube.com/embed/ID_VIDEO_2" allowfullscreen></iframe>
-      <h2>🎬 Titre de la vidéo 2</h2>
+      <iframe src="https://www.youtube.com/embed/IL2hwueTBsI" allowfullscreen></iframe>
+      <h2>Projet 2 – Nom de la vidéo</h2>
     </div>
-    <div class="video-card">
-      <iframe src="https://www.youtube.com/embed/ID_VIDEO_3" allowfullscreen></iframe>
-      <h2>🎬 Titre de la vidéo 3</h2>
-    </div>
-  </div>
+  </section>
 
   <footer>
-    © 2025 - Quentin Teissier - Tous droits réservés
+    © 2025 Quentin Teissier — Tous droits réservés
   </footer>
 
 </body>
