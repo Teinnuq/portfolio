@@ -26,12 +26,26 @@
       overflow: hidden;
     }
 
-    header video {
+    .video-bg {
       position: absolute;
       top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .video-bg iframe {
+      width: 100vw;
+      height: 56.25vw; /* 16:9 ratio */
+      min-height: 100vh;
+      min-width: 177.77vh;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       filter: brightness(0.4);
+      pointer-events: none;
     }
 
     .intro {
@@ -109,10 +123,13 @@
 <body>
 
   <header>
-    <video autoplay muted loop playsinline>
-      <source src="https://www.youtube.com/embed/vzBrNmfkAG0" type="video/mp4" />
-      <!-- fallback -->
-    </video>
+    <div class="video-bg">
+      <iframe src="https://www.youtube.com/embed/vzBrNmfkAG0?autoplay=1&mute=1&controls=0&loop=1&playlist=vzBrNmfkAG0&modestbranding=1&showinfo=0"
+              frameborder="0"
+              allow="autoplay; fullscreen"
+              allowfullscreen>
+      </iframe>
+    </div>
     <div class="intro">
       <h1>Quentin Teissier</h1>
       <p>Vidéaste freelance</p>
@@ -122,11 +139,11 @@
   <section class="videos">
     <div class="video-card">
       <iframe src="https://www.youtube.com/embed/z8H1g_7V9To" allowfullscreen></iframe>
-      <h2>Projet 1 – Nom de la vidéo</h2>
+      <h2>Projet – Urban Life</h2>
     </div>
     <div class="video-card">
       <iframe src="https://www.youtube.com/embed/IL2hwueTBsI" allowfullscreen></iframe>
-      <h2>Projet 2 – Nom de la vidéo</h2>
+      <h2>Projet – Ambiance Nature</h2>
     </div>
   </section>
 
