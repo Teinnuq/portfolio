@@ -2,132 +2,54 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quentin Teissier – Vidéaste freelance</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet" />
   <style>
-    * {
-      box-sizing: border-box;
+    body {
       margin: 0;
-      padding: 0;
-    }
-
-    body, html {
-      height: 100%;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Helvetica Neue', sans-serif;
       background-color: #0e0e0e;
-      color: #fff;
-      scroll-behavior: smooth;
+      color: #ffffff;
     }
 
     header {
-      position: relative;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    .video-bg {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .video-bg iframe {
-      width: 100vw;
-      height: 56.25vw; /* 16:9 ratio */
-      min-height: 100vh;
-      min-width: 177.77vh;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      filter: brightness(0.4);
-      pointer-events: none;
-    }
-
-    .sound-toggle {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      z-index: 5;
-      background: rgba(0,0,0,0.5);
-      color: #fff;
-      border: none;
-      padding: 10px 14px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background 0.3s ease;
-    }
-
-    .sound-toggle:hover {
-      background: rgba(255,255,255,0.2);
-    }
-
-    .intro {
-      padding: 4rem 2rem 2rem;
+      padding: 60px 20px 30px;
       text-align: center;
+      background: linear-gradient(180deg, #000000 0%, #0e0e0e 100%);
     }
 
-    .intro h1 {
-      font-size: 3rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      letter-spacing: 2px;
+    h1 {
+      margin: 0;
+      font-size: 3em;
+      font-weight: bold;
     }
 
-    .intro p {
-      font-size: 1.2rem;
-      font-weight: 300;
-      color: #ccc;
+    p.tagline {
+      margin-top: 10px;
+      font-size: 1.2em;
+      color: #bbbbbb;
     }
 
-    section.videos {
-      padding: 4rem 2rem;
+    .video-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    video {
+      width: 100%;
       max-width: 1200px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
-    }
-
-    .video-card {
-      background-color: #1a1a1a;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-      transition: transform 0.3s ease;
-    }
-
-    .video-card:hover {
-      transform: scale(1.02);
-    }
-
-    .video-card iframe {
-      width: 100%;
-      height: 220px;
-      border: none;
-    }
-
-    .video-card h2 {
-      font-size: 1rem;
-      padding: 1rem;
-      color: #fff;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-      color: #666;
+      border-radius: 16px;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
     }
 
     @media (max-width: 600px) {
-      .intro h1 {
-        font-size: 2rem;
+      h1 {
+        font-size: 2em;
+      }
+      .tagline {
+        font-size: 1em;
       }
     }
   </style>
@@ -135,53 +57,16 @@
 <body>
 
   <header>
-    <div class="video-bg" id="video-container">
-      <iframe id="bg-video" src="https://www.youtube.com/embed/rC36JT88w2A?autoplay=1&mute=1&controls=0&loop=1&playlist=rC36JT88w2A&modestbranding=1&showinfo=0"
-              frameborder="0"
-              allow="autoplay; fullscreen"
-              allowfullscreen>
-      </iframe>
-    </div>
-    <button class="sound-toggle" onclick="enableSound()">🔊 Activer le son</button>
+    <h1>Quentin Teissier</h1>
+    <p class="tagline">Vidéaste freelance</p>
   </header>
 
-  <div class="intro">
-    <h1>Quentin Teissier</h1>
-    <p>Vidéaste freelance</p>
+  <div class="video-container">
+    <video controls autoplay muted playsinline>
+      <source src="https://archive.org/download/showreel-v-r/Showreel%20V%26R.mp4" type="video/mp4" />
+      Votre navigateur ne supporte pas la lecture vidéo.
+    </video>
   </div>
-
-  <section class="videos">
-    <div class="video-card">
-      <iframe src="https://www.youtube.com/embed/z8H1g_7V9To" allowfullscreen></iframe>
-      <h2>Projet – Urban Life</h2>
-    </div>
-    <div class="video-card">
-      <iframe src="https://www.youtube.com/embed/IL2hwueTBsI" allowfullscreen></iframe>
-      <h2>Projet – Ambiance Nature</h2>
-    </div>
-  </section>
-
-  <footer>
-    © 2025 Quentin Teissier — Tous droits réservés
-  </footer>
-
-  <script>
-    function enableSound() {
-      const container = document.getElementById("video-container");
-      const video = document.getElementById("bg-video");
-
-      // Remplacer l'iframe avec une version avec le son
-      const newIframe = document.createElement("iframe");
-      newIframe.src = "https://www.youtube.com/embed/rC36JT88w2A?autoplay=1&mute=0&controls=0&loop=1&playlist=rC36JT88w2A&modestbranding=1&showinfo=0";
-      newIframe.frameBorder = "0";
-      newIframe.allow = "autoplay; fullscreen";
-      newIframe.allowFullscreen = true;
-      newIframe.style = video.style.cssText;
-      newIframe.id = "bg-video";
-
-      container.replaceChild(newIframe, video);
-    }
-  </script>
 
 </body>
 </html>
