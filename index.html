@@ -1,310 +1,224 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quentin Teissier - Vidéaste Freelance</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Helvetica Neue', sans-serif; background: #111; color: white; overflow-x: hidden; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quentin Teissier - Vidéaste Freelance</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
 
-    .intro {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
+        /* Intro animation */
+        #intro {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: black;
+            z-index: 10;
+        }
 
-    #showreel-section {
-      padding: 80px 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-    }
+        /* Showreel section */
+        #showreel {
+            position: relative;
+            margin-top: 60px; /* Adding space above the showreel */
+            text-align: center;
+            display: none;
+        }
 
-    .mute-icon {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 40px;
-      height: 40px;
-      background: url('https://cdn-icons-png.flaticon.com/512/727/727245.png') no-repeat center/contain;
-      opacity: 0.75;
-      animation: blink 0.8s ease-in-out infinite;
-      cursor: pointer;
-    }
+        /* Video player */
+        iframe {
+            width: 80%;
+            max-width: 1200px;
+            height: 600px;
+            border: none;
+            margin: 20px 0;
+        }
 
-    @keyframes blink {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 0.75; }
-    }
+        /* Mute icon */
+        .mute-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            opacity: 0.75;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            display: none;
+            animation: fadeInOut 5s infinite;
+        }
 
-    .projects-section {
-      scroll-snap-align: start;
-      padding: 80px 40px;
-      background: #000;
-    }
+        /* Fade animation for mute icon */
+        @keyframes fadeInOut {
+            0% { opacity: 0.75; }
+            50% { opacity: 1; }
+            100% { opacity: 0.75; }
+        }
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 40px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+        /* Projects Section */
+        #projects {
+            padding: 50px 0;
+            text-align: center;
+            background-color: black;
+        }
 
-    .video-wrapper {
-      position: relative;
-      overflow: hidden;
-    }
+        #projects h2 {
+            font-size: 36px;
+            color: white;
+        }
 
-    .video-wrapper video {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+        #projects p {
+            font-size: 18px;
+            color: white;
+            margin-bottom: 40px;
+        }
 
-    .overlay {
-      position: absolute;
-      top: 0; bottom: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      transform: translateX(-100%);
-      transition: transform 0.4s ease;
-    }
+        .project-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
 
-    .video-wrapper.right .overlay {
-      right: 0;
-      left: auto;
-      transform: translateX(100%);
-    }
+        .project-container iframe {
+            width: 48%;
+            margin-bottom: 20px;
+        }
 
-    .video-wrapper:hover .overlay {
-      transform: translateX(0);
-    }
+        /* Hover effect for project descriptions */
+        .project-description {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            text-align: center;
+        }
 
-    .cta-section {
-      text-align: center;
-      padding: 100px 20px;
-    }
+        .project-wrapper {
+            position: relative;
+        }
 
-    .cta-section h2 {
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
+        .project-wrapper:hover .project-description {
+            display: block;
+        }
 
-    .cta-button {
-      background: #fff;
-      color: #000;
-      padding: 15px 30px;
-      font-size: 1em;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-    }
+        /* Scroll arrow */
+        .scroll-arrow {
+            width: 30px;
+            height: 30px;
+            border: 2px solid white;
+            border-radius: 50%;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 1s infinite;
+            cursor: pointer;
+        }
 
-    /* Pop-up */
-    .popup {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.8);
-      justify-content: center;
-      align-items: center;
-      z-index: 10000;
-    }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+            100% { transform: translateY(0); }
+        }
 
-    .popup-content {
-      background: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      color: #000;
-      width: 90%;
-      max-width: 500px;
-    }
+        /* Pop-up form */
+        .popup-form {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+            width: 400px;
+            z-index: 1000;
+        }
 
-    .popup input, .popup textarea {
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
+        .popup-form input, .popup-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
 
-    .popup button {
-      background: #000;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-    }
-  </style>
+        .popup-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup-form button:hover {
+            background-color: #444;
+        }
+
+    </style>
 </head>
 <body>
-
-<!-- Intro JSON animation -->
-<div class="intro" id="intro"></div>
-
-<!-- Showreel section -->
-<section id="showreel-section">
-  <div class="mute-icon" id="muteToggle"></div>
-  <div style="width: 90%; max-width: 1280px;">
-    <iframe width="100%" height="640" src="https://app.videas.fr/embed/media/549bf7ef-fba6-4e96-bc70-851a9fb0b10d/?title=false&logo=false&thumbnail_duration=false&autoplay=true" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-  </div>
-</section>
-
-<!-- Projets -->
-<section id="projects" class="projects-section">
-  <div class="projects-grid">
-    <!-- Exemple pour 1 vidéo -->
-    <div class="project-item left">
-      <div class="video-wrapper">
-        <div class="video-hover-text">
-          <p>Publicité - Réalisation<br>Vidéo promotionnelle réalisée pour la marque de bijoux Meiv Studio et sa gamme Kami</p>
-        </div>
-        <div class="video-container">
-          <div style="padding:56.25% 0 0 0;position:relative;">
-            <iframe width="100%" height="100%" src="https://app.videas.fr/embed/media/ef605c9a-3324-4566-8866-bfc555fcd472/?title=false&logo=false&thumbnail=video"
-              frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
-              style="position: absolute; top: 0; left: 0" referrerpolicy="unsafe-url">
-            </iframe>
-          </div>
-        </div>
-      </div>
+    <!-- Intro section (JSON animation) -->
+    <div id="intro">
+        <lottie-player src="https://raw.githubusercontent.com/Teinnuq/portfolio/refs/heads/main/Intro%20site.json" background="transparent" speed="1" style="width: 100%; height: 100vh;" loop autoplay></lottie-player>
     </div>
 
-    <!-- Répéter en changeant les liens + description -->
-    <div class="project-item right"> <!-- colonne droite -->
-      <div class="video-wrapper">
-        <div class="video-hover-text">
-          <p>Exemple description vidéo 2</p>
-        </div>
-        <div class="video-container">
-          <div style="padding:56.25% 0 0 0;position:relative;">
-            <iframe width="100%" height="100%" src="https://app.videas.fr/embed/media/22859966-29f7-47a4-adb4-fd5c05c461c5/?title=false&logo=false&thumbnail=video"
-              frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
-              style="position: absolute; top: 0; left: 0" referrerpolicy="unsafe-url">
-            </iframe>
-          </div>
-        </div>
-      </div>
+    <!-- Showreel Section -->
+    <div id="showreel">
+        <iframe id="showreel-video" src="https://app.videas.fr/embed/media/549bf7ef-fba6-4e96-bc70-851a9fb0b10d/?title=false&logo=false&thumbnail_duration=false&autoplay=true" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="mute-icon" id="mute-icon" onclick="toggleMute()">🔊</div>
+        <div class="scroll-arrow" id="scroll-arrow"></div>
     </div>
 
-    <!-- Ajoute les 6 autres vidéos ici de la même façon... -->
-  </div>
-</section>
+    <!-- Projects Section -->
+    <div id="projects">
+        <h2>Quelques projets</h2>
+        <p>Des vidéos que j'ai pu réaliser ou sur lesquels j'ai collaboré</p>
 
-<style>
-.projects-section {
-  padding: 80px 10%;
-  background-color: #111;
-  color: white;
-}
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 40px;
-}
-.project-item {
-  position: relative;
-  overflow: hidden;
-}
-.video-wrapper {
-  position: relative;
-}
-.video-container {
-  border-radius: 10px;
-  overflow: hidden;
-}
-.video-hover-text {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  background: rgba(0,0,0,0.8);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateX(100%);
-  transition: transform 0.5s ease;
-  padding: 20px;
-  box-sizing: border-box;
-  text-align: center;
-}
+        <div class="project-container">
+            <div class="project-wrapper">
+                <div class="project-description">Publicité - Vidéo promotionnelle réalisée pour Meiv Studio</div>
+                <iframe src="https://app.videas.fr/embed/media/ef605c9a-3324-4566-8866-bfc555fcd472/?title=false&logo=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="project-wrapper">
+                <div class="project-description">Vidéo événementielle - Réalisation d'une vidéo pour un lancement de produit</div>
+                <iframe src="https://app.videas.fr/embed/media/22859966-29f7-47a4-adb4-fd5c05c461c5/?title=false&logo=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="project-wrapper">
+                <div class="project-description">Clip musical - Collaboration avec un artiste local pour un clip original</div>
+                <iframe src="https://app.videas.fr/embed/media/e7fb85de-87ac-4fcd-91a1-56d30f423a1c/?title=false&logo=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="project-wrapper">
+                <div class="project-description">Vidéo institutionnelle - Vidéo réalisée pour une ONG de protection de l'environnement</div>
+                <iframe src="https://app.videas.fr/embed/media/87294831-ca71-4e68-bef9-45dd340e02ce/?title=false&logo=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
 
-/* Slide depuis la gauche si colonne de gauche */
-.project-item.left .video-hover-text {
-  transform: translateX(-100%);
-}
-.project-item.left:hover .video-hover-text {
-  transform: translateX(0);
-}
+    <!-- Pop-up Form -->
+    <div class="popup-form" id="popup-form">
+        <h3>Demander un devis</h3>
+        <form action="mailto:teissier.quentin@gmail.com" method="POST" enctype="text/plain">
+            <input type="text" name="name" placeholder="Nom et Prénom" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="subject" placeholder="Objet" required>
+            <textarea name="message" placeholder="Votre message" rows="4" required></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
 
-/* Slide depuis la droite si colonne de droite */
-.project-item.right:hover .video-hover-text {
-  transform: translateX(0);
-}
-</style>
-
-<!-- Call to Action -->
-<section class="cta-section">
-  <h2>Envie de collaborer ?</h2>
-  <button class="cta-button" onclick="document.querySelector('.popup').style.display='flex'">Demander un devis</button>
-</section>
-
-<!-- Popup formulaire -->
-<div class="popup">
-  <div class="popup-content">
-    <h3>Demande de devis</h3>
-    <input type="text" placeholder="Nom et Prénom">
-    <input type="email" placeholder="Email">
-    <input type="text" placeholder="Objet">
-    <textarea placeholder="Votre message"></textarea>
-    <button>Envoyer</button>
-  </div>
-</div>
-
-<!-- Lottie + JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.5/lottie.min.js"></script>
-<script>
-  // Intro Lottie
-  const anim = lottie.loadAnimation({
-    container: document.getElementById('intro'),
-    renderer: 'svg',
-    loop: false,
-    autoplay: true,
-    path: 'https://raw.githubusercontent.com/Teinnuq/portfolio/refs/heads/main/Intro%20site.json'
-  });
-  anim.addEventListener('complete', () => {
-    document.getElementById('intro').style.display = 'none';
-    document.getElementById('showreel-section').scrollIntoView({ behavior: 'smooth' });
-  });
-
-  // Mute toggle (affichage uniquement, pas de contrôle réel sur iframe)
-  const mute = document.getElementById('muteToggle');
-  setTimeout(() => mute.style.display = 'none', 5000);
-
-  // Fermer le popup formulaire
-  document.querySelector('.popup').addEventListener('click', (e) => {
-    if (e.target.classList.contains('popup')) {
-      e.target.style.display = 'none';
-    }
-  });
-</script>
-</body>
-</html>
+    <script>
+        // Variable to
