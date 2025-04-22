@@ -260,3 +260,51 @@
   transform: translateX(0);
 }
 </style>
+
+<!-- Call to Action -->
+<section class="cta-section">
+  <h2>Envie de collaborer ?</h2>
+  <button class="cta-button" onclick="document.querySelector('.popup').style.display='flex'">Demander un devis</button>
+</section>
+
+<!-- Popup formulaire -->
+<div class="popup">
+  <div class="popup-content">
+    <h3>Demande de devis</h3>
+    <input type="text" placeholder="Nom et Prénom">
+    <input type="email" placeholder="Email">
+    <input type="text" placeholder="Objet">
+    <textarea placeholder="Votre message"></textarea>
+    <button>Envoyer</button>
+  </div>
+</div>
+
+<!-- Lottie + JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.5/lottie.min.js"></script>
+<script>
+  // Intro Lottie
+  const anim = lottie.loadAnimation({
+    container: document.getElementById('intro'),
+    renderer: 'svg',
+    loop: false,
+    autoplay: true,
+    path: 'https://raw.githubusercontent.com/Teinnuq/portfolio/refs/heads/main/Intro%20site.json'
+  });
+  anim.addEventListener('complete', () => {
+    document.getElementById('intro').style.display = 'none';
+    document.getElementById('showreel-section').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Mute toggle (affichage uniquement, pas de contrôle réel sur iframe)
+  const mute = document.getElementById('muteToggle');
+  setTimeout(() => mute.style.display = 'none', 5000);
+
+  // Fermer le popup formulaire
+  document.querySelector('.popup').addEventListener('click', (e) => {
+    if (e.target.classList.contains('popup')) {
+      e.target.style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>
