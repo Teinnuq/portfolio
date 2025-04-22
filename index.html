@@ -168,65 +168,95 @@
 </section>
 
 <!-- Projets -->
-<section class="projects-section">
+<section id="projects" class="projects-section">
   <div class="projects-grid">
-    <!-- Répéter ce bloc 8x avec tes vidéos et descriptions -->
-    <div class="video-wrapper left">
-      <video src="" muted autoplay loop></video>
-      <div class="overlay">Publicité - Meiv Studio</div>
+    <!-- Exemple pour 1 vidéo -->
+    <div class="project-item left">
+      <div class="video-wrapper">
+        <div class="video-hover-text">
+          <p>Publicité - Réalisation<br>Vidéo promotionnelle réalisée pour la marque de bijoux Meiv Studio et sa gamme Kami</p>
+        </div>
+        <div class="video-container">
+          <div style="padding:56.25% 0 0 0;position:relative;">
+            <iframe width="100%" height="100%" src="https://app.videas.fr/embed/media/ef605c9a-3324-4566-8866-bfc555fcd472/?title=false&logo=false&thumbnail=video"
+              frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+              style="position: absolute; top: 0; left: 0" referrerpolicy="unsafe-url">
+            </iframe>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="video-wrapper right">
-      <video src="" muted autoplay loop></video>
-      <div class="overlay">Teaser Instagram - Sport</div>
+
+    <!-- Répéter en changeant les liens + description -->
+    <div class="project-item right"> <!-- colonne droite -->
+      <div class="video-wrapper">
+        <div class="video-hover-text">
+          <p>Exemple description vidéo 2</p>
+        </div>
+        <div class="video-container">
+          <div style="padding:56.25% 0 0 0;position:relative;">
+            <iframe width="100%" height="100%" src="https://app.videas.fr/embed/media/22859966-29f7-47a4-adb4-fd5c05c461c5/?title=false&logo=false&thumbnail=video"
+              frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+              style="position: absolute; top: 0; left: 0" referrerpolicy="unsafe-url">
+            </iframe>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- ... +6 autres vidéos -->
+
+    <!-- Ajoute les 6 autres vidéos ici de la même façon... -->
   </div>
 </section>
 
-<!-- Call to Action -->
-<section class="cta-section">
-  <h2>Envie de collaborer ?</h2>
-  <button class="cta-button" onclick="document.querySelector('.popup').style.display='flex'">Demander un devis</button>
-</section>
+<style>
+.projects-section {
+  padding: 80px 10%;
+  background-color: #111;
+  color: white;
+}
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+}
+.project-item {
+  position: relative;
+  overflow: hidden;
+}
+.video-wrapper {
+  position: relative;
+}
+.video-container {
+  border-radius: 10px;
+  overflow: hidden;
+}
+.video-hover-text {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(100%);
+  transition: transform 0.5s ease;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
 
-<!-- Popup formulaire -->
-<div class="popup">
-  <div class="popup-content">
-    <h3>Demande de devis</h3>
-    <input type="text" placeholder="Nom et Prénom">
-    <input type="email" placeholder="Email">
-    <input type="text" placeholder="Objet">
-    <textarea placeholder="Votre message"></textarea>
-    <button>Envoyer</button>
-  </div>
-</div>
+/* Slide depuis la gauche si colonne de gauche */
+.project-item.left .video-hover-text {
+  transform: translateX(-100%);
+}
+.project-item.left:hover .video-hover-text {
+  transform: translateX(0);
+}
 
-<!-- Lottie + JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.5/lottie.min.js"></script>
-<script>
-  // Intro Lottie
-  const anim = lottie.loadAnimation({
-    container: document.getElementById('intro'),
-    renderer: 'svg',
-    loop: false,
-    autoplay: true,
-    path: 'https://raw.githubusercontent.com/Teinnuq/portfolio/refs/heads/main/Intro%20site.json'
-  });
-  anim.addEventListener('complete', () => {
-    document.getElementById('intro').style.display = 'none';
-    document.getElementById('showreel-section').scrollIntoView({ behavior: 'smooth' });
-  });
-
-  // Mute toggle (affichage uniquement, pas de contrôle réel sur iframe)
-  const mute = document.getElementById('muteToggle');
-  setTimeout(() => mute.style.display = 'none', 5000);
-
-  // Fermer le popup formulaire
-  document.querySelector('.popup').addEventListener('click', (e) => {
-    if (e.target.classList.contains('popup')) {
-      e.target.style.display = 'none';
-    }
-  });
-</script>
-</body>
-</html>
+/* Slide depuis la droite si colonne de droite */
+.project-item.right:hover .video-hover-text {
+  transform: translateX(0);
+}
+</style>
