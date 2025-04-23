@@ -1,224 +1,208 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quentin Teissier - Vidéaste Freelance</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: black;
-            font-family: Arial, sans-serif;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quentin Teissier | Vidéaste Freelance</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+      color: white;
+    }
 
-        /* Intro animation */
-        #intro {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: black;
-            z-index: 10;
-        }
+    .intro {
+      width: 100vw;
+      height: 100vh;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
 
-        /* Showreel section */
-        #showreel {
-            position: relative;
-            margin-top: 60px; /* Adding space above the showreel */
-            text-align: center;
-            display: none;
-        }
+    .showreel-section {
+      padding: 200px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
 
-        /* Video player */
-        iframe {
-            width: 80%;
-            max-width: 1200px;
-            height: 600px;
-            border: none;
-            margin: 20px 0;
-        }
+    .showreel-container {
+      width: 100%;
+      max-width: 1080px;
+      aspect-ratio: 16/9;
+      position: relative;
+    }
 
-        /* Mute icon */
-        .mute-icon {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            opacity: 0.75;
-            font-size: 24px;
-            color: white;
-            cursor: pointer;
-            display: none;
-            animation: fadeInOut 5s infinite;
-        }
+    .scroll-indicator {
+      text-align: center;
+      margin-top: 20px;
+      animation: fadeUpDown 2s infinite;
+      font-size: 2rem;
+      color: white;
+      opacity: 0.75;
+    }
 
-        /* Fade animation for mute icon */
-        @keyframes fadeInOut {
-            0% { opacity: 0.75; }
-            50% { opacity: 1; }
-            100% { opacity: 0.75; }
-        }
+    @keyframes fadeUpDown {
+      0%, 100% { transform: translateY(0); opacity: 0.5; }
+      50% { transform: translateY(8px); opacity: 1; }
+    }
 
-        /* Projects Section */
-        #projects {
-            padding: 50px 0;
-            text-align: center;
-            background-color: black;
-        }
+    .projects-section {
+      padding: 80px 40px;
+    }
 
-        #projects h2 {
-            font-size: 36px;
-            color: white;
-        }
+    .projects-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
 
-        #projects p {
-            font-size: 18px;
-            color: white;
-            margin-bottom: 40px;
-        }
+    .projects-title h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
 
-        .project-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
+    .projects-title p {
+      font-size: 1rem;
+      color: #ccc;
+    }
 
-        .project-container iframe {
-            width: 48%;
-            margin-bottom: 20px;
-        }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-        /* Hover effect for project descriptions */
-        .project-description {
-            display: none;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 20px;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            text-align: center;
-        }
+    .video-item {
+      position: relative;
+    }
 
-        .project-wrapper {
-            position: relative;
-        }
+    .video-description {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 10px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
 
-        .project-wrapper:hover .project-description {
-            display: block;
-        }
+    .video-item:hover .video-description {
+      opacity: 1;
+    }
 
-        /* Scroll arrow */
-        .scroll-arrow {
-            width: 30px;
-            height: 30px;
-            border: 2px solid white;
-            border-radius: 50%;
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 1s infinite;
-            cursor: pointer;
-        }
+    .contact-section {
+      text-align: center;
+      margin: 100px auto;
+    }
 
-        @keyframes bounce {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(10px); }
-            100% { transform: translateY(0); }
-        }
+    .popup-form {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #111;
+      padding: 30px;
+      border-radius: 10px;
+      z-index: 9999;
+      color: white;
+    }
 
-        /* Pop-up form */
-        .popup-form {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-            width: 400px;
-            z-index: 1000;
-        }
+    .popup-form input, .popup-form textarea {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      background: #222;
+      color: white;
+      border: 1px solid #444;
+    }
 
-        .popup-form input, .popup-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .popup-form button {
-            width: 100%;
-            padding: 10px;
-            background-color: #000;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .popup-form button:hover {
-            background-color: #444;
-        }
-
-    </style>
+    .popup-form button {
+      padding: 10px 20px;
+      background: white;
+      color: black;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <!-- Intro section (JSON animation) -->
-    <div id="intro">
-        <lottie-player src="https://raw.githubusercontent.com/Teinnuq/portfolio/refs/heads/main/Intro%20site.json" background="transparent" speed="1" style="width: 100%; height: 100vh;" loop autoplay></lottie-player>
+  <!-- Intro -->
+  <div class="intro">
+    <lottie-player src="https://raw.githubusercontent.com/Teinnuq/portfolio/refs/heads/main/Intro%20site.json" background="transparent" speed="1" style="width: 100%; height: 100%;" autoplay></lottie-player>
+  </div>
+
+  <!-- Showreel -->
+  <section class="showreel-section" id="showreel">
+    <div class="showreel-container">
+      <iframe width="100%" height="100%" src="https://app.videas.fr/embed/media/549bf7ef-fba6-4e96-bc70-851a9fb0b10d/?title=false&logo=false&thumbnail_duration=false&autoplay=true" frameborder="0" allowfullscreen></iframe>
     </div>
+    <div class="scroll-indicator"><span class="arrow">▼</span></div>
+  </section>
 
-    <!-- Showreel Section -->
-    <div id="showreel">
-        <iframe id="showreel-video" src="https://app.videas.fr/embed/media/549bf7ef-fba6-4e96-bc70-851a9fb0b10d/?title=false&logo=false&thumbnail_duration=false&autoplay=true" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <div class="mute-icon" id="mute-icon" onclick="toggleMute()">🔊</div>
-        <div class="scroll-arrow" id="scroll-arrow"></div>
+  <!-- Projets -->
+  <section class="projects-section" id="projects">
+    <div class="projects-title">
+      <h2>QUELQUES PROJETS</h2>
+      <p>que j’ai pu réaliser ou sur lesquels j’ai collaboré.</p>
     </div>
-
-    <!-- Projects Section -->
-    <div id="projects">
-        <h2>Quelques projets</h2>
-        <p>Des vidéos que j'ai pu réaliser ou sur lesquels j'ai collaboré</p>
-
-        <div class="project-container">
-            <div class="project-wrapper">
-                <div class="project-description">Publicité - Vidéo promotionnelle réalisée pour Meiv Studio</div>
-                <iframe src="https://app.videas.fr/embed/media/ef605c9a-3324-4566-8866-bfc555fcd472/?title=false&logo=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div class="project-wrapper">
-                <div class="project-description">Vidéo événementielle - Réalisation d'une vidéo pour un lancement de produit</div>
-                <iframe src="https://app.videas.fr/embed/media/22859966-29f7-47a4-adb4-fd5c05c461c5/?title=false&logo=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div class="project-wrapper">
-                <div class="project-description">Clip musical - Collaboration avec un artiste local pour un clip original</div>
-                <iframe src="https://app.videas.fr/embed/media/e7fb85de-87ac-4fcd-91a1-56d30f423a1c/?title=false&logo=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div class="project-wrapper">
-                <div class="project-description">Vidéo institutionnelle - Vidéo réalisée pour une ONG de protection de l'environnement</div>
-                <iframe src="https://app.videas.fr/embed/media/87294831-ca71-4e68-bef9-45dd340e02ce/?title=false&logo=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
+    <div class="video-grid">
+      <!-- 8 vidéos avec description (remplace par ton contenu) -->
+      <div class="video-item">
+        <div style="padding:56.25% 0 0 0;position:relative;"><iframe width="100%" height="100%" src="https://app.videas.fr/embed/media/ef605c9a-3324-4566-8866-bfc555fcd472/?title=false&logo=false&thumbnail_duration=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true" style="position: absolute; top: 0; left: 0" referrerpolicy="unsafe-url"></iframe></div>
+        <div class="video-description">Publicité - Réslisation. Vidéo promotionnelle réalisée pour la marque de bijoux Meiv Studio et sa gamme Kami</div>
+      </div>
+      <!-- ... répète pour 8 vidéos ... -->
     </div>
+  </section>
 
-    <!-- Pop-up Form -->
-    <div class="popup-form" id="popup-form">
-        <h3>Demander un devis</h3>
-        <form action="mailto:teissier.quentin@gmail.com" method="POST" enctype="text/plain">
-            <input type="text" name="name" placeholder="Nom et Prénom" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="text" name="subject" placeholder="Objet" required>
-            <textarea name="message" placeholder="Votre message" rows="4" required></textarea>
-            <button type="submit">Envoyer</button>
-        </form>
-    </div>
+  <!-- Contact -->
+  <div class="contact-section">
+    <h3>Envie de collaborer ?</h3>
+    <button onclick="document.getElementById('formPopup').style.display='block'">Demander un devis</button>
+  </div>
 
-    <script>
-        // Variable to
+  <div id="formPopup" class="popup-form">
+    <form action="https://formsubmit.co/teissier.quentin@gmail.com" method="POST">
+      <input type="text" name="name" placeholder="Nom et Prénom" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="subject" placeholder="Objet">
+      <textarea name="message" placeholder="Votre message" required></textarea>
+      <button type="submit">Envoyer</button>
+    </form>
+  </div>
+
+  <script>
+    // Intro Disparition après lecture
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.querySelector(".intro").style.display = "none";
+      }, 5000); // Ajuster en fonction de la durée de l'animation JSON
+    });
+
+    // Cacher la pop-up si on clique à l'extérieur
+    window.addEventListener("click", function(e) {
+      const popup = document.getElementById("formPopup");
+      if (e.target === popup) {
+        popup.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
