@@ -27,10 +27,16 @@
       top: 0;
       left: 0;
       z-index: 1000;
+      transition: opacity 1s ease;
+    }
+
+    .intro.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .showreel-section {
-      padding: 200px 0;
+      padding: 80px 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -39,7 +45,7 @@
 
     .showreel-container {
       width: 100%;
-      max-width: 1080px;
+      max-width: 1500px;
       aspect-ratio: 16/9;
       position: relative;
     }
@@ -56,6 +62,15 @@
     @keyframes fadeUpDown {
       0%, 100% { transform: translateY(0); opacity: 0.5; }
       50% { transform: translateY(8px); opacity: 1; }
+    }
+
+    .separator {
+      border: none;
+      height: 2px;
+      background: linear-gradient(to right, transparent, white 50%, transparent);
+      margin: 60px auto;
+      width: 60%;
+     opacity: 0.2;
     }
 
     .projects-section {
@@ -94,15 +109,22 @@
       bottom: 0;
       left: 0;
       width: 100%;
+      max-height: 100%;
       background: rgba(0, 0, 0, 0.8);
       color: white;
       padding: 10px;
       opacity: 0;
       transition: opacity 0.3s;
+      box-sizing: border-box;
     }
 
     .video-item:hover .video-description {
       opacity: 1;
+    }
+
+    .video-description strong {
+      font-size: 1.5rem;
+      color: #fff;
     }
 
     .contact-section {
@@ -117,7 +139,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       background: #111;
-      padding: 30px;
+      padding: 200px;
       border-radius: 10px;
       z-index: 9999;
       color: white;
@@ -126,11 +148,13 @@
     .popup-form input, .popup-form textarea {
       display: block;
       width: 100%;
-      margin: 10px 0;
-      padding: 10px;
+      margin: 12px 0;
+      padding: 15px;
+      font-size: 1.1rem;
       background: #222;
       color: white;
       border: 1px solid #444;
+      border-radius: 5px;
     }
 
     .popup-form button {
@@ -140,21 +164,34 @@
       border: none;
       cursor: pointer;
     }
+
+    .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
   </style>
 </head>
 <body>
   <!-- Intro -->
-  <div class="intro">
+  <div class="intro" id="intro">
     <lottie-player src="https://raw.githubusercontent.com/Teinnuq/portfolio/refs/heads/main/Intro%20site.json" background="transparent" speed="1" style="width: 100%; height: 100%;" autoplay></lottie-player>
   </div>
 
   <!-- Showreel -->
   <section class="showreel-section" id="showreel">
     <div class="showreel-container">
-      <iframe width="100%" height="100%" src="https://app.videas.fr/embed/media/549bf7ef-fba6-4e96-bc70-851a9fb0b10d/?title=false&logo=false&thumbnail_duration=false&autoplay=true" frameborder="0" allowfullscreen></iframe>
+      <iframe id="showreel-iframe" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
     </div>
     <div class="scroll-indicator"><span class="arrow">▼</span></div>
   </section>
+
+  <hr class="separator">
 
   <!-- Projets -->
   <section class="projects-section" id="projects">
@@ -165,44 +202,82 @@
     <div class="video-grid">
       <!-- 8 vidéos avec description (remplace par ton contenu) -->
       <div class="video-item">
-        <div style="padding:56.25% 0 0 0;position:relative;"><iframe width="100%" height="100%" src="https://app.videas.fr/embed/media/ef605c9a-3324-4566-8866-bfc555fcd472/?title=false&logo=false&thumbnail_duration=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true" style="position: absolute; top: 0; left: 0" referrerpolicy="unsafe-url"></iframe></div>
-        <div class="video-description">Publicité - Réslisation. Vidéo promotionnelle réalisée pour la marque de bijoux Meiv Studio et sa gamme Kami</div>
+        <div style="padding:56.25% 0 0 0;position:relative;"><iframe width="100%" height="100%" src="https://app.videas.fr/embed/media/ef605c9a-3324-4566-8866-bfc555fcd472/?title=false&logo=false&thumbnail_duration=false&thumbnail=video"
+          frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true"
+          style="position: absolute; top: 0; left: 0" referrerpolicy="unsafe-url"></iframe></div>
+        <div class="video-description"><strong>Publicité - Réalisation</strong><br>
+          Vidéo promotionnelle réalisée pour la marque de bijoux Meiv Studio et sa gamme Kami.</div>
       </div>
-      <!-- ... répète pour 8 vidéos ... -->
+      <div class="video-item">
+        <div style="padding:56.25% 0 0 0;position:relative;"><iframe width="100%" height="100%" src="https://app.videas.fr/embed/media/22859966-29f7-47a4-adb4-fd5c05c461c5/?title=false&logo=false&thumbnail_duration=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true" style="position: absolute; top: 0; left: 0" referrerpolicy="unsafe-url"></iframe></div>
+        <div class="video-description"><strong>Evénementiel - Réalisation</strong><br>
+          Film de mariage réalisée pour Pierre et Mélissa, retraçant toute leur journée.</div>
+      </div>
+      <div class="video-item">
+        <div style="padding:56.25% 0 0 0;position:relative;"><iframe width="100%" height="100%" src="https://app.videas.fr/embed/media/87294831-ca71-4e68-bef9-45dd340e02ce/?title=false&logo=false&thumbnail_duration=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true" style="position: absolute; top: 0; left: 0" referrerpolicy="unsafe-url"></iframe></div>        
+        <div class="video-description"><strong>Corporate - Réalisation</strong><br>
+          Vidéo de présentation de l'outil professionnel Zoho réalisée pour l'agence Dynamic Touch.</div>
+      </div>
+      <div class="video-item">
+        <div style="padding:56.25% 0 0 0;position:relative;"><iframe width="100%" height="100%" src="https://app.videas.fr/embed/media/e7fb85de-87ac-4fcd-91a1-56d30f423a1c/?title=false&logo=false&thumbnail_duration=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true" style="position: absolute; top: 0; left: 0" referrerpolicy="unsafe-url"></iframe></div>
+        <div class="video-description"><strong>Corporate - Vidéaste</strong><br>
+          Vidéo de présentation de l'entreprise Lyreco. Seconde caméra pour l'agence Dynamic Touch.</div>
+      </div>
+      <div class="video-item">
+        <div style="padding:56.25% 0 0 0;position:relative;"><iframe width="100%" height="100%" src="https://app.videas.fr/embed/media/32b2219e-a6af-41c0-bebb-5e9aff5dd370/?title=false&logo=false&thumbnail_duration=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true" style="position: absolute; top: 0; left: 0" referrerpolicy="unsafe-url"></iframe></div>
+        <div class="video-description"><strong>Corporate - Réalisation</strong><br>
+          Vidéo de présentation de la boutique Le Hérisson Angora, réalisée pour l'agence Dynamic Touch.</div>
+      </div>
+      <div class="video-item">
+        <div style="padding:56.25% 0 0 0;position:relative;"><iframe width="100%" height="100%" src="https://app.videas.fr/embed/media/9cbd4295-612b-445a-849b-6c58fa503336/?title=false&logo=false&thumbnail_duration=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true" style="position: absolute; top: 0; left: 0" referrerpolicy="unsafe-url"></iframe></div>
+        <div class="video-description"><strong>Promotion - Réalisation</strong><br>
+          Vidéo de présentation du projet Sortir de la meute & Trouver sa tribu réalisée pour Gislaine Duboc.</div>
+      </div>
+      <div class="video-item">
+        <div style="padding:56.25% 0 0 0;position:relative;"><iframe width="100%" height="100%" src="https://app.videas.fr/embed/media/9e2f2375-4cb6-42aa-920c-27361800d185/?title=false&logo=false&thumbnail_duration=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true" style="position: absolute; top: 0; left: 0" referrerpolicy="unsafe-url"></iframe></div>
+        <div class="video-description"><strong>Making of - Vidéaste</strong><br>
+          Vidéo making of du clip Different pour l'artiste Numah.</div>
+      </div>
+      <div class="video-item">
+        <div style="padding:56.25% 0 0 0;position:relative;"><iframe width="100%" height="100%" src="https://app.videas.fr/embed/media/d8746a04-b453-44e1-854a-7330f5958a8d/?title=false&logo=false&thumbnail_duration=false&thumbnail=video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true" style="position: absolute; top: 0; left: 0" referrerpolicy="unsafe-url"></iframe></div>
+        <div class="video-description"><strong>Coporate - Réalisation</strong><br>
+          Vidéo motion design présentant les actions de Gender Smart, réalisée pour le CIRAD.</div>
+      </div>
     </div>
   </section>
 
+  <hr class="separator">
+  
   <!-- Contact -->
   <div class="contact-section">
     <h3>Envie de collaborer ?</h3>
-    <button onclick="document.getElementById('formPopup').style.display='block'">Demander un devis</button>
+    <button style="font-size: 1.2rem; padding: 15px 30px;" onclick="document.getElementById('formPopup').style.display='block'">Demander un devis</button>
   </div>
 
   <div id="formPopup" class="popup-form">
+    <span class="close-btn" onclick="document.getElementById('formPopup').style.display='none'">✕</span>
     <form action="https://formsubmit.co/teissier.quentin@gmail.com" method="POST">
       <input type="text" name="name" placeholder="Nom et Prénom" required>
       <input type="email" name="email" placeholder="Email" required>
       <input type="text" name="subject" placeholder="Objet">
-      <textarea name="message" placeholder="Votre message" required></textarea>
+      <textarea name="projet" placeholder="Décrivez-moi votre projet" required></textarea>
       <button type="submit">Envoyer</button>
     </form>
   </div>
 
   <script>
-    // Intro Disparition après lecture
     window.addEventListener("load", () => {
       setTimeout(() => {
-        document.querySelector(".intro").style.display = "none";
-      }, 5000); // Ajuster en fonction de la durée de l'animation JSON
+        // Transition douce
+        const intro = document.getElementById("intro");
+        intro.classList.add("hidden");
+
+        // Lancer la vidéo showreel après disparition de l’intro
+        const iframe = document.getElementById("showreel-iframe");
+        iframe.src = "https://app.videas.fr/embed/media/a94f75a4-b096-40c3-a213-1eae1f9d63b5/?title=false&logo=false&thumbnail_duration=false&autoplay=true";
+      }, 5000); // adapte à la durée de ton animation
     });
 
-    // Cacher la pop-up si on clique à l'extérieur
-    window.addEventListener("click", function(e) {
-      const popup = document.getElementById("formPopup");
-      if (e.target === popup) {
-        popup.style.display = "none";
-      }
-    });
   </script>
 </body>
 </html>
