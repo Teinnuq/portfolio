@@ -176,6 +176,29 @@
   cursor: pointer;
   background: none;
   border: none;
+
+  @media (max-width: 768px) {
+  .video-item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .video-item iframe {
+    position: relative;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+  }
+
+  .video-description {
+    position: static;
+    background: none;
+    opacity: 1;
+    padding: 10px 0;
+    text-align: center;
+  }
+}
 }
   </style>
 </head>
